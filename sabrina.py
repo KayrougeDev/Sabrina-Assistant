@@ -1,8 +1,8 @@
 """
 Assistant Personnel V 1.0
 
- 
- 
+
+
 """
 
 # Les imports
@@ -29,7 +29,7 @@ from tkinter.messagebox import *
 colorama.init()
 pygame.init()
 
-print(Fore.GREEN + "Sabrina 1.0" + Fore.WHITE)
+print(Fore.GREEN + "Sabrina 1.1" + Fore.WHITE)
 
 
 
@@ -39,7 +39,7 @@ DATA_FILE = DATA_FILE_DIR / "user.data.assist"
 if not DATA_FILE.exists():
     with open(DATA_FILE, "w+") as f:
         f.close()
-        
+
 def writeData(v1, v2, v3):
     with open(DATA_FILE, "w") as data:
         data.write(v1 + "\n")
@@ -70,8 +70,8 @@ def pSpeak(msg:str):
 
 
 root = Tk()
-root.geometry('1000x400')
-root.title("Sabrina 1.0")
+root.geometry('950x500')
+root.title("Sabrina 1.1")
 root.config(bg='#ffd8a8')
 
 try:
@@ -85,9 +85,8 @@ def readData(index:int):
   with open(DATA_FILE, "r") as data:
     value_list = data.readlines()
     data.close()
-    value = value_list[index]
-    return value
-    
+    return value_list[index]
+
 def _askUserInfoWIndow():
     win = Tk()
     win.geometry("300x300")
@@ -153,7 +152,7 @@ def dataQrCode():
         TEMP_usersurname,
         TEMP_birthdate
     ]
-    qrcode.createQrCodeList("Sabrina-Data", qrcode.DEFAULT_VERSION, qrcode.DEFAULT_BOXE_SIZE, qrcode.DEFAULT_BORDER, dataIn, "red", "white")
+    qrcode.createQrCode("Sabrina-Data", qrcode.DEFAULT_VERSION, qrcode.DEFAULT_BOXE_SIZE, qrcode.DEFAULT_BORDER, dataIn, "red", "white")
 
 def customQRCode():
     win = Tk()
@@ -165,7 +164,7 @@ def customQRCode():
     def add_data():
         data.append(e1.get())
     def valid():
-        qrcode.createQrCodeList("QrCodeCustom", qrcode.DEFAULT_VERSION, qrcode.DEFAULT_BOXE_SIZE, qrcode.DEFAULT_BORDER, data, "blue", "white")
+        qrcode.createQrCode("QrCodeCustom", qrcode.DEFAULT_VERSION, qrcode.DEFAULT_BOXE_SIZE, qrcode.DEFAULT_BORDER, data, "blue", "white")
         win.destroy()
     Button(win,text="Ajouter donnée",command=add_data).pack(expand=YES)
     Button(win,text="Valider",command=valid).pack(expand=YES)
@@ -190,12 +189,12 @@ def readQRCode():
 def createDiary():
     win = Tk()
     win.geometry("300x300")
-    win.title("Qr Code Gen")
+    win.title("Agenda")
     name = Entry(win)
     name.pack(expand=YES)
     desc = Entry(win)
     desc.pack(expand=YES)
-    
+
     e1 = Entry(win)
     e1.pack(expand=YES)
     e2 = Entry(win)
@@ -232,7 +231,10 @@ menu1.add_command(label="Lire un qrcode de données", command=readDataQrCode)
 menu1.add_command(label="Lire un qrcode", command=readQRCode)
 
 menu2 = Menu(menubar, tearoff=0)
-menu2.add_command(label="Créer un agenda", command=createDiary)
+menu2.add_command(label="Créer un agenda (Presque fini)", command=createDiary)
+menu2.add_command(label="Agenda en cours (En developement)")
+
+
 
 menubar.add_cascade(label="Outils", menu=menu1)
 menubar.add_cascade(label="Agenda (En developement)", menu=menu2)
