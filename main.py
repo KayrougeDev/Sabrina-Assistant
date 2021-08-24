@@ -1,17 +1,6 @@
 import pathlib
-import os, sys
+import sys
 
-#Pour la conversion en éxécutable
-HERE = os.path.dirname(sys.argv[0])
-sys.path.insert(0, HERE)
-os.chdir(HERE)
-
-#Pour un placement
-HERE = os.path.dirname(sys.argv[0])
-APPDIR = os.path.abspath(HERE)
-
-sys.path.insert(0, APPDIR)
-os.chdir(APPDIR)
 
 def getConfigDir(appName=''):
     """
