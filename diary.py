@@ -1,5 +1,5 @@
 import pathlib
-from main import DATA_FILE_DIR
+import time
 
 class Diary:
     def __init__(self, data_dir:pathlib.Path, args:str):
@@ -16,6 +16,7 @@ class Diary:
                 data.write(self.args[f] + "\n")
                 f += 1
             data.close()
+            self.timeCheck()
         elif len(self.args) < 3:
           print("Pas assez d'arguments ({}) !".format(str(len(self.args))))
         elif len(self.args) > 3:
@@ -58,7 +59,7 @@ class Diary:
             return s[:len(s)-1]
         except:
             print("Une erreur est survenue")
-        
+
     def get_diary_desc_unformated(self):
         try:
             s = self.get_diary_values()[1]
@@ -82,6 +83,37 @@ class Diary:
         except:
             print("Une erreur est survenue")
 
+    def timeCheck(self):
+        while True:
+            if self.checkIsTime():
+                break
+            time.sleep(60)
+
+    def checkIsTime(self):
+        dhd = self.get_diary_date_formated().split("_")
+        dd_list = dhd[0].split("/")
+        dh_list = dhd[1].split(":")
+        Y = dd_list[2]
+        M = dd_list[1]
+        D = dd_list[0]
+        H = dh_list[0]
+        MIN = dh_list[1]
+        diaryH = Y + M + D + H + MIN
+        diaryH = int(diaryH)
+        print(diaryH)
+        y = time.strftime("%Y")
+        m = time.strftime("%m")
+        d = time.strftime("%d")
+        h = time.strftime("%H")
+        min = time.strftime("%M")
+        localH = y + m + d + h + min
+        localH = int(localH)
+        if localH >= diaryH:
+            print("IsTime")
+            return True
+        else:
+            return False
+
 
 
 """
@@ -96,3 +128,6 @@ print(d.get_diary_date_formated())
 print(d.get_diary_date_unformated())
 
 """
+
+
+
