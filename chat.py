@@ -1,6 +1,4 @@
-from os import strerror
 from tkinter import *
-from tkinter.messagebox import showinfo
 import pygame
 import sabrina
 import webbrowser
@@ -30,13 +28,13 @@ commandEntry = Entry(frame, bg='WHITE', font=("Book Antika", 15))
 commandEntry.pack(side=BOTTOM, padx=10)
 
 
-    
+
 def sPrint(msg:str):
     SabrinaLabel(msg)
     sabrina.engine.say(msg)
     sabrina.engine.runAndWait()
-    
-    
+
+
 def awserToUser(msg:str):
     if msg.__contains__("nom") and msg.__contains__("famille") and not msg.__contains__("diary"):
         sPrint(sabrina.TEMP_usersurname)
@@ -49,10 +47,12 @@ def awserToUser(msg:str):
         sPrint("C'est partie pour Boys !")
     elif msg.__contains__("Rick"):
         webbrowser.open_new("https://youtu.be/dQw4w9WgXcQ")
-        sPrint("Never Gona Give You Up !")
+        sPrint("Never Gonna Give You Up !")
     elif msg.__contains__("anniv") or msg.__contains__("naissance"):
       if not msg.__contains__("diary"):
         sPrint(sabrina.TEMP_birthdate)
+    elif msg.__contains__("qrcode"):
+        sPrint("Pour utiliser les QrCodes allez dans outils dans la barre de navigation en haut.")
     else:
         sPrint("Je ne comprend pas !")
 
@@ -69,11 +69,19 @@ def SabrinaLabel(msg:str):
     label = Label(sabrinaFrame, text=msg, bg='#ffd2a2', font=("Book Antika", 15))
     label.pack()
 
+def sendUserMsg(event):
+    Userlabel()
+    musique()
+
+
+# A Changer pour la touche entrer (je connais pas le code)
+window.bind("<Return>", sendUserMsg)
+
 # le bouton
 myButton = Button(
     frame,
-    text='Envoyer.', 
-    command=lambda:[Userlabel(), musique()])
+    text='Envoyer.',
+    command=sendUserMsg)
 myButton.pack(side=BOTTOM)
 
 sPrint("Bonjour {}, Je suis Sabrina votre assistante personelle.".format(sabrina.TEMP_userfirstname))
