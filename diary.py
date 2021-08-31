@@ -1,5 +1,6 @@
 import pathlib
 import time
+import threading
 
 class Diary:
     def __init__(self, data_dir:pathlib.Path, args:str):
@@ -18,7 +19,7 @@ class Diary:
             data.close()
             self.timeCheck()
         elif len(self.args) < 3:
-          print("Pas assez d'arguments ({}) !".format(str(len(self.args))))
+          print("Pas assez d'argument ({}) !".format(str(len(self.args))))
         elif len(self.args) > 3:
           print("Trop d'arguments ({}) !".format(str(len(self.args))))
 
@@ -28,9 +29,6 @@ class Diary:
     def get_diary_file(self):
         return self.diary_file
 
-    def substring(msg:str):
-        msg = msg[:len(msg)-1]
-        return msg
 
     def get_diary_values(self):
         with open(self.get_diary_file(), "r") as file:
@@ -84,10 +82,15 @@ class Diary:
             print("Une erreur est survenue")
 
     def timeCheck(self):
+        """
         while True:
             if self.checkIsTime():
                 break
             time.sleep(60)
+        """
+        if not(self.checkIsTime()):
+            t = threading.Timer(60.0, self.timeCheck)
+            t.start()
 
     def checkIsTime(self):
         dhd = self.get_diary_date_formated().split("_")
@@ -100,7 +103,6 @@ class Diary:
         MIN = dh_list[1]
         diaryH = Y + M + D + H + MIN
         diaryH = int(diaryH)
-        print(diaryH)
         y = time.strftime("%Y")
         m = time.strftime("%m")
         d = time.strftime("%d")
@@ -108,6 +110,7 @@ class Diary:
         min = time.strftime("%M")
         localH = y + m + d + h + min
         localH = int(localH)
+        #print(diaryH, localH)
         if localH >= diaryH:
             print("IsTime")
             return True
@@ -128,6 +131,4 @@ print(d.get_diary_date_formated())
 print(d.get_diary_date_unformated())
 
 """
-
-
 
