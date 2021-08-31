@@ -1,8 +1,8 @@
 """
 Assistant Personnel V 1.0
 
-
-
+ 
+ 
 """
 
 # Les imports
@@ -11,6 +11,7 @@ from main import DATA_FILE_DIR
 
 import diary
 import codeqr as qrcode
+import threading
 
 # Attention ne pas faire de runandwait et de init, utilise vocal_engine.speak(message) ca va tout faire tout seul
 import pyttsx3
@@ -39,7 +40,7 @@ DATA_FILE = DATA_FILE_DIR / "user.data.assist"
 if not DATA_FILE.exists():
     with open(DATA_FILE, "w+") as f:
         f.close()
-
+        
 def writeData(v1, v2, v3):
     with open(DATA_FILE, "w") as data:
         data.write(v1 + "\n")
@@ -86,7 +87,7 @@ def readData(index:int):
     value_list = data.readlines()
     data.close()
     return value_list[index]
-
+    
 def _askUserInfoWIndow():
     win = Tk()
     win.geometry("300x300")
@@ -194,7 +195,7 @@ def createDiary():
     name.pack(expand=YES)
     desc = Entry(win)
     desc.pack(expand=YES)
-
+    
     e1 = Entry(win)
     e1.pack(expand=YES)
     e2 = Entry(win)
@@ -216,6 +217,10 @@ def createDiary():
         win.destroy()
     Button(win,text="Valider",command=valid).pack(expand=YES)
 
+def actualDiaryWindow():
+    t = threading.enumerate()
+    showinfo("Agenda", "Agenda en cours"+str(t))
+
 #Un menu
 menubar = Menu(root)
 menubar.config(bg='#ffd8a8')
@@ -231,8 +236,8 @@ menu1.add_command(label="Lire un qrcode de données", command=readDataQrCode)
 menu1.add_command(label="Lire un qrcode", command=readQRCode)
 
 menu2 = Menu(menubar, tearoff=0)
-menu2.add_command(label="Créer un agenda (Presque fini)", command=createDiary)
-menu2.add_command(label="Agenda en cours (En developement)")
+menu2.add_command(label="Créer un agenda", command=createDiary)
+menu2.add_command(label="Agenda en cours (En developement)", command=actualDiaryWindow)
 
 
 
