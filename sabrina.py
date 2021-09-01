@@ -7,7 +7,7 @@ Assistant Personnel V 1.0
 
 # Les imports
 #import PyQt5 as pqt
-from main import DATA_FILE_DIR
+from main import DATA_FILE_DIR, chooseFileDir
 
 import diary
 import codeqr as qrcode
@@ -143,7 +143,7 @@ def ask_yes_no(msg:str):
 
 
 def clearDataWindow():
-    if askquestion("Tout supprimer", "Êtes-vous sur de vouloir supprimer les données pour toujours (c'est long) ?\nLe programme va se fermer."):
+    if askyesno("Tout supprimer", "Êtes-vous sur de vouloir supprimer les données pour toujours (c'est long) ?\nLe programme va se fermer."):
         clearData()
         root.destroy()
 
@@ -171,7 +171,7 @@ def customQRCode():
     Button(win,text="Valider",command=valid).pack(expand=YES)
 
 def readDataQrCode():
-    r = qrcode.read("Sabrina-Data")
+    r = qrcode.readPath(chooseFileDir())
     r = str(r)
     r = r.split("\n")
     writeData(r[0], r[1], r[2])
@@ -179,7 +179,7 @@ def readDataQrCode():
     showinfo("QrCode", "Le qrcode a correctement été lu !")
 
 def readQRCode():
-    r = qrcode.read("QrCodeCustom")
+    r = qrcode.readPath(chooseFileDir())
     win = Tk()
     win.geometry("300x300")
     win.title("Lecture du QrCode")
