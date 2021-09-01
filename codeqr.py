@@ -1,3 +1,4 @@
+from pathlib import Path
 import qrcode
 import qrcode.constants
 from cv2 import QRCodeDetector, imread
@@ -26,7 +27,7 @@ def createQrCode(name:str,QRversion:int,QrBoxeSize:int,QrBorder:int,data,color:s
             qr.add_data(data[l]+"\n")
         l += 1
 
-
+    
     qr.make(fit=True)
 
     img = qr.make_image(fill_color=color, back_color=color_back)
@@ -36,6 +37,13 @@ def createQrCode(name:str,QRversion:int,QrBoxeSize:int,QrBorder:int,data,color:s
 
 def read(name:str):
     dir = QR_FILE_DIR / (name+".png")
+    dufg = QRCodeDetector()
+    val, points, qrcode = dufg.detectAndDecode(imread(str(dir)))
+    return val
+
+
+def readPath(name:Path):
+    dir = name
     dufg = QRCodeDetector()
     val, points, qrcode = dufg.detectAndDecode(imread(str(dir)))
     return val
