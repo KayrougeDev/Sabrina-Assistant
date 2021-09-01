@@ -1,8 +1,24 @@
 import pathlib
-import sys
+import os, sys, tkinter
+import tkinter.filedialog
 
+#Pour la conversion en éxécutable
+HERE = os.path.dirname(sys.argv[0])
+sys.path.insert(0, HERE)
+os.chdir(HERE)
+
+#Pour un placement
+HERE = os.path.dirname(sys.argv[0])
+APPDIR = os.path.abspath(HERE)
+
+sys.path.insert(0, APPDIR)
+os.chdir(APPDIR)
+
+step = 0
 
 def getConfigDir(appName=''):
+    if step != 0:
+        pass
     """
     Retourne le dossier de configuration.
     Si le paramètre appName n'est pas vide, on crée un sous-dossier.
@@ -43,4 +59,14 @@ Variables globales du programme.
 APP_NAME = 'SabrinaAssist'
 DATA_FILE_DIR = getConfigDir(APP_NAME)
 
-import chat
+def chooseFileDir():
+    """
+    Fonction appelée par le bouton "Lire un qrcode".
+    """
+    global DATA_FILE_DIR
+    newDir = tkinter.filedialog.askopenfile(initialdir=DATA_FILE_DIR, title="Image du QrCode - Sabrina")
+    return newDir.name
+
+if step == 0:
+    step += 1
+    import chat
