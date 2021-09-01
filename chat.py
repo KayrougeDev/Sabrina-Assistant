@@ -52,7 +52,7 @@ def awserToUser(msg:str):
       if not msg.__contains__("diary"):
         sPrint(sabrina.TEMP_birthdate)
     elif msg.__contains__("qrcode"):
-        sPrint("Pour utiliser les QrCodes allez dans outils dans la barre de navigation en haut.")
+        sPrint("Pour utiliser les Qr Codes allez dans outils dans la barre de navigation en haut.")
     else:
         sPrint("Je ne comprend pas !")
 
@@ -69,11 +69,15 @@ def SabrinaLabel(msg:str):
     label = Label(sabrinaFrame, text=msg, bg='#ffd2a2', font=("Book Antika", 15))
     label.pack()
     
-def sendUserMsg(event):
+
+def _sendUserMsg(event):
+    sendUserMsg()
+
+def sendUserMsg():
     Userlabel()
     musique()
 
-window.bind("<space>", sendUserMsg)
+window.bind("<space>", _sendUserMsg)
 
 # le bouton
 myButton = Button(
