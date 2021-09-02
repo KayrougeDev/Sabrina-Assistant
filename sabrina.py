@@ -7,7 +7,7 @@ Assistant Personnel V 1.0
 
 # Les imports
 #import PyQt5 as pqt
-from main import DATA_FILE_DIR, chooseFileDir
+from main import DATA_FILE_DIR, chooseFileDir, chooseFileDirToSave
 
 import diary
 import codeqr as qrcode
@@ -153,7 +153,7 @@ def dataQrCode():
         TEMP_usersurname,
         TEMP_birthdate
     ]
-    qrcode.createQrCode("Sabrina-Data", qrcode.DEFAULT_VERSION, qrcode.DEFAULT_BOXE_SIZE, qrcode.DEFAULT_BORDER, dataIn, "red", "white")
+    qrcode.createQrCode(chooseFileDirToSave(), qrcode.DEFAULT_VERSION, qrcode.DEFAULT_BOXE_SIZE, qrcode.DEFAULT_BORDER, dataIn, "red", "white")
 
 def customQRCode():
     win = Tk()
@@ -165,7 +165,7 @@ def customQRCode():
     def add_data():
         data.append(e1.get())
     def valid():
-        qrcode.createQrCode("QrCodeCustom", qrcode.DEFAULT_VERSION, qrcode.DEFAULT_BOXE_SIZE, qrcode.DEFAULT_BORDER, data, "blue", "white")
+        qrcode.createQrCode(chooseFileDirToSave(), qrcode.DEFAULT_VERSION, qrcode.DEFAULT_BOXE_SIZE, qrcode.DEFAULT_BORDER, data, "blue", "white")
         win.destroy()
     Button(win,text="Ajouter donnée",command=add_data).pack(expand=YES)
     Button(win,text="Valider",command=valid).pack(expand=YES)
