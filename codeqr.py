@@ -31,8 +31,10 @@ def createQrCode(name:str,QRversion:int,QrBoxeSize:int,QrBorder:int,data,color:s
     qr.make(fit=True)
 
     img = qr.make_image(fill_color=color, back_color=color_back)
-    img.save(QR_FILE_DIR / (name+'.png'))
-    showinfo("QrCode", "QrCode créé: "+ str(QR_FILE_DIR / (name+'.png')))
+    img.save(name)
+    showinfo("QrCode", "QrCode créé: "+name)
+
+
 
 
 def read(name:str):
