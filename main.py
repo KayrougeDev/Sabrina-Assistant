@@ -17,8 +17,6 @@ os.chdir(APPDIR)
 step = 0
 
 def getConfigDir(appName=''):
-    if step != 0:
-        pass
     """
     Retourne le dossier de configuration.
     Si le paramètre appName n'est pas vide, on crée un sous-dossier.
@@ -64,9 +62,18 @@ def chooseFileDir():
     Fonction appelée par le bouton "Lire un qrcode".
     """
     global DATA_FILE_DIR
-    newDir = tkinter.filedialog.askopenfile(initialdir=DATA_FILE_DIR, title="Image du QrCode - Sabrina")
+    newDir = tkinter.filedialog.askopenfile(initialdir=DATA_FILE_DIR, title="Choisir l'image du QrCode - Sabrina")
     return newDir.name
 
+
+def chooseFileDirToSave():
+    """
+    Fonction appelée par le bouton "Créé un qrcode".
+    """
+    global DATA_FILE_DIR
+    newDir = tkinter.filedialog.asksaveasfilename(confirmoverwrite=True, initialdir=DATA_FILE_DIR, defaultextension=".png", title="Sauvegarder l'image du QrCode - Sabrina")
+    return newDir
+
 if step == 0:
-    step += 1
+    step = 1
     import chat
