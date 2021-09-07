@@ -33,9 +33,6 @@ pygame.init()
 print(Fore.GREEN + "Sabrina 1.1" + Fore.WHITE)
 
 
-
-
-
 DATA_FILE = DATA_FILE_DIR / "user.data.assist"
 if not DATA_FILE.exists():
     with open(DATA_FILE, "w+") as f:
@@ -80,7 +77,6 @@ try:
     root.iconphoto(True, img)
 except:
     showwarning("Icone", "Impossible de charger l'icone !")
-
 
 def readData(index:int):
   with open(DATA_FILE, "r") as data:
@@ -153,7 +149,12 @@ def dataQrCode():
         TEMP_usersurname,
         TEMP_birthdate
     ]
-    qrcode.createQrCode(chooseFileDirToSave(), qrcode.DEFAULT_VERSION, qrcode.DEFAULT_BOXE_SIZE, qrcode.DEFAULT_BORDER, dataIn, "red", "white")
+    qrcode.createQrCode(
+        chooseFileDirToSave("Sauvegarder un QrCode - Sabrina"),
+        qrcode.DEFAULT_VERSION,
+        qrcode.DEFAULT_BOXE_SIZE,
+        qrcode.DEFAULT_BORDER, dataIn, "red", "white"
+    )
 
 def customQRCode():
     win = Tk()
@@ -165,13 +166,18 @@ def customQRCode():
     def add_data():
         data.append(e1.get())
     def valid():
-        qrcode.createQrCode(chooseFileDirToSave(), qrcode.DEFAULT_VERSION, qrcode.DEFAULT_BOXE_SIZE, qrcode.DEFAULT_BORDER, data, "blue", "white")
+        qrcode.createQrCode(
+            chooseFileDirToSave("Sauvegarder un QrCode - Sabrina"),
+            qrcode.DEFAULT_VERSION,
+            qrcode.DEFAULT_BOXE_SIZE,
+            qrcode.DEFAULT_BORDER, data, "blue", "white"
+        )
         win.destroy()
     Button(win,text="Ajouter donnée",command=add_data).pack(expand=YES)
     Button(win,text="Valider",command=valid).pack(expand=YES)
 
 def readDataQrCode():
-    r = qrcode.readPath(chooseFileDir())
+    r = qrcode.readPath(chooseFileDir("Choisir un QrCode - Sabrina"))
     r = str(r)
     r = r.split("\n")
     writeData(r[0], r[1], r[2])
@@ -179,7 +185,7 @@ def readDataQrCode():
     showinfo("QrCode", "Le qrcode a correctement été lu !")
 
 def readQRCode():
-    r = qrcode.readPath(chooseFileDir())
+    r = qrcode.readPath(chooseFileDir("Choisir un QrCode - Sabrina"))
     win = Tk()
     win.geometry("300x300")
     win.title("Lecture du QrCode")
@@ -236,13 +242,13 @@ menu1.add_command(label="Lire un qrcode de données", command=readDataQrCode)
 menu1.add_command(label="Lire un qrcode", command=readQRCode)
 
 menu2 = Menu(menubar, tearoff=0)
-menu2.add_command(label="Créer un agenda", command=createDiary)
+menu2.add_command(label="Créer un agenda (Presque fonctionelle)", command=createDiary)
 menu2.add_command(label="Agenda en cours (En developement)", command=actualDiaryWindow)
 
 
 
 menubar.add_cascade(label="Outils", menu=menu1)
-menubar.add_cascade(label="Agenda (En developement)", menu=menu2)
+menubar.add_cascade(label="Agenda", menu=menu2)
 
 
 root.config(menu=menubar)
