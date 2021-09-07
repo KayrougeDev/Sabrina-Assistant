@@ -57,22 +57,30 @@ Variables globales du programme.
 APP_NAME = 'SabrinaAssist'
 DATA_FILE_DIR = getConfigDir(APP_NAME)
 
-def chooseFileDir():
+def chooseFileDir(wTitle="Ouvrir un fichier - Sabrina"):
     """
     Fonction appelée par le bouton "Lire un qrcode".
     """
     global DATA_FILE_DIR
-    newDir = tkinter.filedialog.askopenfile(initialdir=DATA_FILE_DIR, title="Choisir l'image du QrCode - Sabrina")
-    return newDir.name
+    openFile = tkinter.filedialog.askopenfile(initialdir=DATA_FILE_DIR, title=wTitle)
+    try:
+        return openFile.name
+    except:
+        pass
 
 
-def chooseFileDirToSave():
+def chooseFileDirToSave(wTitle="Sauvegarder un fichier - Sabrina"):
     """
     Fonction appelée par le bouton "Créé un qrcode".
     """
     global DATA_FILE_DIR
-    newDir = tkinter.filedialog.asksaveasfilename(confirmoverwrite=True, initialdir=DATA_FILE_DIR, defaultextension=".png", title="Sauvegarder l'image du QrCode - Sabrina")
-    return newDir
+    saveFile = tkinter.filedialog.asksaveasfilename(confirmoverwrite=True,
+        initialdir=DATA_FILE_DIR,
+        defaultextension=".png",
+        filetypes=[("png file", ".png")],
+        title=wTitle
+    )
+    return saveFile
 
 if step == 0:
     step = 1
