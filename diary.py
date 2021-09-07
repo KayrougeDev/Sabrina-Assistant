@@ -112,7 +112,7 @@ class Diary:
         localH = int(localH)
         #print(diaryH, localH)
         if localH >= diaryH:
-            print("IsTime")
+            print("Agenda terminer")
             return True
         else:
             return False
