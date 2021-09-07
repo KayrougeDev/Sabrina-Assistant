@@ -86,6 +86,8 @@ myButton = Button(
     command=sendUserMsg)
 myButton.pack(side=BOTTOM)
 
+print("Sabrina a correctement démarrer.")
+
 sPrint("Bonjour {}, Je suis Sabrina votre assistante personelle.".format(sabrina.TEMP_userfirstname))
 
 window.mainloop()
