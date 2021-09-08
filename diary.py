@@ -20,6 +20,7 @@ class Diary:
                 f += 1
             data.close()
             self.timeCheck()
+            self.diary_list_index = len(diary_list)
         elif len(self.args) < 3:
           print("Pas assez d'argument ({}) !".format(str(len(self.args))))
         elif len(self.args) > 3:
@@ -93,6 +94,7 @@ class Diary:
         if not self.checkIsTime():
             t = threading.Timer(60.0, self.timeCheck)
             t.start()
+            self.thread = t
 
     def checkIsTime(self):
         dhd = self.get_diary_date_formated().split("_")
@@ -114,7 +116,7 @@ class Diary:
         localH = int(localH)
         print(diaryH, localH)
         if localH >= diaryH:
-            diary_list.remove(self.get_diary_name_unformated())
+            diary_list.remove(diary_list[self.diary_list_index])
             print("Agenda terminer")
             return True
         else:
