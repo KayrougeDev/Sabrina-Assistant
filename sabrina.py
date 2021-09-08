@@ -5,7 +5,8 @@ Assistant Personnel V 1.2
  
 """
 
-# Les imports
+
+Les imports
 #import PyQt5 as pqt
 from main import DATA_FILE_DIR, chooseFileDir, chooseFileDirToSave
 
@@ -70,7 +71,7 @@ def pSpeak(msg:str):
 root = Tk()
 root.geometry('950x500')
 root.title("Sabrina 1.2")
-root.config(bg='#ffd8a8')
+root.config(bg='#1BB3A4')
 
 try:
     img = PhotoImage(file='icon.png')
@@ -244,7 +245,7 @@ def stopAllDiary():
 
 #Un menu
 menubar = Menu(root)
-menubar.config(bg='#ffd8a8')
+menubar.config(bg='#1BB3A4')
 
 menu1 = Menu(menubar, tearoff=0)
 menu1.add_command(label="Re-entrer les infos", command=_askUserInfoWIndow)
