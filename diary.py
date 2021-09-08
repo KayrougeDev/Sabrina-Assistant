@@ -105,7 +105,7 @@ class Diary:
         if os.path.exists(self.diary_file):
             os.remove(self.diary_file)
         else:
-            print("Impossible de supprimer le fichier car il n'existe pas")
+            print("Le fichier d'agenda n'existe pas !")
 
     def checkIsTime(self):
         dhd = self.get_diary_date_formated().split("_")
