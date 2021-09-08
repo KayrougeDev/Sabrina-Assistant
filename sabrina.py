@@ -231,6 +231,13 @@ def actualDiaryWindow():
         diarylist = diarylist + "\n" + diary.diary_list[dIndex].get_diary_name_unformated()
         dIndex += 1
     showinfo("Agenda", "Agenda en cours (" + str(len(diary.diary_list)) +")\n" + diarylist)
+    
+def stopAllDiary():
+    dIndex = 0
+    while dIndex < (len(diary.diary_list)):
+        diary.diary_list[dIndex].stop_diary()
+        dIndex += 1
+
 
 #Un menu
 menubar = Menu(root)
@@ -247,8 +254,9 @@ menu1.add_command(label="Lire un qrcode de données", command=readDataQrCode)
 menu1.add_command(label="Lire un qrcode", command=readQRCode)
 
 menu2 = Menu(menubar, tearoff=0)
-menu2.add_command(label="Créer un agenda (Presque fonctionelle)", command=createDiary)
-menu2.add_command(label="Agenda en cours (En developement)", command=actualDiaryWindow)
+menu2.add_command(label="Créer un agenda", command=createDiary)
+menu2.add_command(label="Agenda en cours", command=actualDiaryWindow)
+menu2.add_command(label="Arreter tout les agendas", command=stopAllDiary)
 
 
 
