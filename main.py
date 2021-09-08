@@ -1,11 +1,13 @@
 import pathlib
 import os, sys, tkinter
 import tkinter.filedialog
+from tkinter import Tk
 
 #Pour la conversion en éxécutable
 HERE = os.path.dirname(sys.argv[0])
 sys.path.insert(0, HERE)
 os.chdir(HERE)
+
 
 #Pour un placement
 HERE = os.path.dirname(sys.argv[0])
@@ -13,6 +15,8 @@ APPDIR = os.path.abspath(HERE)
 
 sys.path.insert(0, APPDIR)
 os.chdir(APPDIR)
+
+HOME_DIR = pathlib.Path().home
 
 step = 0
 
@@ -45,8 +49,6 @@ def getConfigDir(appName=''):
     return configDir
 
 
-
-
 """
 Variables globales du programme.
     * APP_NAME : le nom du programme et donc du dossier à créer pour la configuration.
@@ -62,7 +64,7 @@ def chooseFileDir(wTitle="Ouvrir un fichier - Sabrina"):
     Fonction appelée par le bouton "Lire un qrcode".
     """
     global DATA_FILE_DIR
-    openFile = tkinter.filedialog.askopenfile(initialdir=DATA_FILE_DIR, title=wTitle)
+    openFile = tkinter.filedialog.askopenfile(initialdir=HOME_DIR, title=wTitle)
     try:
         return openFile.name
     except:
@@ -74,10 +76,11 @@ def chooseFileDirToSave(wTitle="Sauvegarder un fichier - Sabrina"):
     Fonction appelée par le bouton "Créé un qrcode".
     """
     global DATA_FILE_DIR
-    saveFile = tkinter.filedialog.asksaveasfilename(confirmoverwrite=True,
-        initialdir=DATA_FILE_DIR,
+    saveFile = tkinter.filedialog.asksaveasfilename(
+        confirmoverwrite=True,
+        initialdir=HOME_DIR,
         defaultextension=".png",
-        filetypes=[("png file", ".png")],
+        filetypes=[("Fichier PNG", ".png")],
         title=wTitle
     )
     return saveFile
