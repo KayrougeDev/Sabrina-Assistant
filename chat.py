@@ -14,10 +14,10 @@ def musique():
     pygame.mixer.music.play()
 
 # une frame juste pour aligner horizontalement
-frame = Frame(window, bg='#ffd8a8')
+frame = Frame(window, bg='#1BB3A4')
 frame.pack(side=RIGHT, padx=10)
 
-sabrinaFrame = Frame(window, bg='#ffd8a8')
+sabrinaFrame = Frame(window, bg='#1BB3A4')
 sabrinaFrame.pack(side=LEFT, padx=10)
 
 
@@ -60,13 +60,13 @@ def awserToUser(msg:str):
 #Le label utilisateur
 def Userlabel():
     awserToUser(commandEntry.get())
-    label = Label(frame, text=commandEntry.get(), bg='#ffd2a2', font=("Book Antika", 15))
+    label = Label(frame, text=commandEntry.get(), bg='#1BB3A4', font=("Book Antika", 15))
     label.pack()
 
 
 #Le label utilisateur
 def SabrinaLabel(msg:str):
-    label = Label(sabrinaFrame, text=msg, bg='#ffd2a2', font=("Book Antika", 15))
+    label = Label(sabrinaFrame, text=msg, bg='#1BB3A4', font=("Book Antika", 15))
     label.pack()
     
 
