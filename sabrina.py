@@ -219,7 +219,7 @@ def createDiary():
         date = e1.get() + "/" + e2.get() + "/" + e3.get() + "_" + e4.get() + ":" + e5.get()
         final = descs + "-" + date
         d = diary.Diary(DATA_FILE_DIR, final)
-        diary.diary_list.append(d.get_diary_name_unformated())
+        diary.diary_list.append(d)
         showinfo("Agenda", "Agenda créé " + str(d.get_diary_name_unformated()))
         win.destroy()
     Button(win,text="Valider",command=valid).pack(expand=YES)
@@ -228,7 +228,7 @@ def actualDiaryWindow():
     diarylist = ""
     dIndex = 0
     while dIndex < (len(diary.diary_list)):
-        diarylist = diarylist + "\n" + diary.diary_list[dIndex]
+        diarylist = diarylist + "\n" + diary.diary_list[dIndex].get_diary_name_unformated()
         dIndex += 1
     showinfo("Agenda", "Agenda en cours (" + str(len(diary.diary_list)) +")\n" + diarylist)
 
