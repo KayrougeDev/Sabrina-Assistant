@@ -2,6 +2,8 @@ import pathlib
 import time
 import threading
 
+diary_list = []
+
 class Diary:
     def __init__(self, data_dir:pathlib.Path, args:str):
         self.DIARY_DATA_DIR = data_dir / "diary"
@@ -88,7 +90,7 @@ class Diary:
                 break
             time.sleep(60)
         """
-        if not(self.checkIsTime()):
+        if not self.checkIsTime():
             t = threading.Timer(60.0, self.timeCheck)
             t.start()
 
@@ -110,8 +112,9 @@ class Diary:
         min = time.strftime("%M")
         localH = y + m + d + h + min
         localH = int(localH)
-        #print(diaryH, localH)
+        print(diaryH, localH)
         if localH >= diaryH:
+            diary_list.remove(self.get_diary_name_unformated())
             print("Agenda terminer")
             return True
         else:
@@ -131,4 +134,3 @@ print(d.get_diary_date_formated())
 print(d.get_diary_date_unformated())
 
 """
-
