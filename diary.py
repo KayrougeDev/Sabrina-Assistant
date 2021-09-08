@@ -95,6 +95,10 @@ class Diary:
             t = threading.Timer(60.0, self.timeCheck)
             t.start()
             self.thread = t
+            
+    def stop_diary(self):
+        self.thread.cancel()
+        diary_list.remove(diary_list[self.diary_list_index])
 
     def checkIsTime(self):
         dhd = self.get_diary_date_formated().split("_")
