@@ -213,15 +213,18 @@ def createDiary():
     e5 = Entry(win)
     e5.pack(expand=YES)
     def valid():
-        name2 = name.get().replace(" ", "_")
-        desc2 = desc.get().replace(" ", "_")
-        descs = name2 + "-" + desc2
-        date = e1.get() + "/" + e2.get() + "/" + e3.get() + "_" + e4.get() + ":" + e5.get()
-        final = descs + "-" + date
-        d = diary.Diary(DATA_FILE_DIR, final)
-        diary.diary_list.append(d)
-        showinfo("Agenda", "Agenda créé " + str(d.get_diary_name_unformated()))
-        win.destroy()
+        try:
+            name2 = name.get().replace(" ", "_")
+            desc2 = desc.get().replace(" ", "_")
+            descs = name2 + "-" + desc2
+            date = e1.get() + "/" + e2.get() + "/" + e3.get() + "_" + e4.get() + ":" + e5.get()
+            final = descs + "-" + date
+            d = diary.Diary(DATA_FILE_DIR, final)
+            diary.diary_list.append(d)
+            showinfo("Agenda", "Agenda créé " + str(d.get_diary_name_unformated()))
+            win.destroy()
+        except:
+            showerror("Agenda", "Une erreur est survenue peut-être que vous avez mis un caractère spécial (il ne sont pas supporter)")
     Button(win,text="Valider",command=valid).pack(expand=YES)
 
 def actualDiaryWindow():
