@@ -1,6 +1,7 @@
 import pathlib
 import time
 import threading
+import os
 
 diary_list = []
 
@@ -95,10 +96,16 @@ class Diary:
             t = threading.Timer(60.0, self.timeCheck)
             t.start()
             self.thread = t
-            
+
     def stop_diary(self):
+        self.endDiary()
         self.thread.cancel()
-        diary_list.remove(diary_list[self.diary_list_index])
+
+    def endDiary(self):
+        if os.path.exists(self.diary_file):
+            os.remove(self.diary_file)
+        else:
+            print("Impossible de supprimer le fichier car il n'existe pas")
 
     def checkIsTime(self):
         dhd = self.get_diary_date_formated().split("_")
@@ -120,11 +127,13 @@ class Diary:
         localH = int(localH)
         print(diaryH, localH)
         if localH >= diaryH:
-            diary_list.remove(diary_list[self.diary_list_index])
+            self.endDiary()
             print("Agenda terminer")
             return True
         else:
             return False
+
+        
 
 
 
@@ -140,3 +149,7 @@ print(d.get_diary_date_formated())
 print(d.get_diary_date_unformated())
 
 """
+
+
+
+
