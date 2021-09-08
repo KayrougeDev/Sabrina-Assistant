@@ -1,5 +1,5 @@
 """
-Assistant Personnel V 1.0
+Assistant Personnel V 1.2
 
  
  
@@ -30,7 +30,7 @@ from tkinter.messagebox import *
 colorama.init()
 pygame.init()
 
-print(Fore.GREEN + "Sabrina 1.1" + Fore.WHITE)
+print(Fore.GREEN + "Sabrina 1.2" + Fore.WHITE)
 
 
 DATA_FILE = DATA_FILE_DIR / "user.data.assist"
@@ -69,7 +69,7 @@ def pSpeak(msg:str):
 
 root = Tk()
 root.geometry('950x500')
-root.title("Sabrina 1.1")
+root.title("Sabrina 1.2")
 root.config(bg='#ffd8a8')
 
 try:
