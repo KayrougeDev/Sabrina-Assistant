@@ -48,6 +48,9 @@ def awserToUser(msg:str):
     elif msg.__contains__("Rick"):
         webbrowser.open_new("https://youtu.be/dQw4w9WgXcQ")
         sPrint("Never Gonna Give You Up !")
+    elif msg.__contains__("Sexbomb"):
+        webbrowser.open_new("https://www.youtube.com/watch?v=WZ32gSLNHfA")
+        sPrint("C'est partie !")
     elif msg.__contains__("anniv") or msg.__contains__("naissance"):
       if not msg.__contains__("diary"):
         sPrint(sabrina.TEMP_birthdate)
