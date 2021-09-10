@@ -5,14 +5,12 @@ Assistant Personnel V 1.2
  
 """
 
-
-Les imports
+# Les imports
 #import PyQt5 as pqt
 from main import DATA_FILE_DIR, chooseFileDir, chooseFileDirToSave
 
 import diary
 import codeqr as qrcode
-import threading
 
 # Attention ne pas faire de runandwait et de init, utilise vocal_engine.speak(message) ca va tout faire tout seul
 import pyttsx3
@@ -77,7 +75,7 @@ try:
     img = PhotoImage(file='icon.png')
     root.iconphoto(True, img)
 except:
-    showwarning("Icone", "Impossible de charger l'icone !")
+    showwarning("Sabrina", "Impossible de charger l'icone !")
 
 def readData(index:int):
   with open(DATA_FILE, "r") as data:
@@ -214,32 +212,31 @@ def createDiary():
     e5 = Entry(win)
     e5.pack(expand=YES)
     def valid():
-        try:
+        # try:
             name2 = name.get().replace(" ", "_")
             desc2 = desc.get().replace(" ", "_")
             descs = name2 + "-" + desc2
             date = e1.get() + "/" + e2.get() + "/" + e3.get() + "_" + e4.get() + ":" + e5.get()
             final = descs + "-" + date
-            d = diary.Diary(DATA_FILE_DIR, final)
-            diary.diary_list.append(d)
-            showinfo("Agenda", "Agenda créé " + str(d.get_diary_name_unformated()))
+            d = diary.Diary(final)
             win.destroy()
-        except:
-            showerror("Agenda", "Une erreur est survenue peut-être que vous avez mis un caractère spécial (il ne sont pas supporter)")
+    #     except:
+    #         showerror("Agenda", "Une erreur est survenue peut-être que vous avez mis un caractère spécial (il ne sont pas supporter)")
     Button(win,text="Valider",command=valid).pack(expand=YES)
 
 def actualDiaryWindow():
     diarylist = ""
     dIndex = 0
-    while dIndex < (len(diary.diary_list)):
-        diarylist = diarylist + "\n" + diary.diary_list[dIndex].get_diary_name_unformated()
+    while dIndex < (len(diary.database.getCurrentDiary())):
+        diarylist = diarylist + "\n" + diary.database.getCurrentDiary()[dIndex]
         dIndex += 1
-    showinfo("Agenda", "Agenda en cours (" + str(len(diary.diary_list)) +")\n" + diarylist)
-    
+    showinfo("Agenda", "Agenda en cours (" + str(len(diary.database.getCurrentDiary())) +")\n" + diarylist)
+
 def stopAllDiary():
     dIndex = 0
     while dIndex < (len(diary.diary_list)):
         diary.diary_list[dIndex].stop_diary()
+        diary.diary_list.remove(diary.diary_list[dIndex])
         dIndex += 1
 
 
