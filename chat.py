@@ -27,14 +27,13 @@ sabrinaFrame.pack(side=LEFT, padx=10)
 commandEntry = Entry(frame, bg='WHITE', font=("Book Antika", 15))
 commandEntry.pack(side=BOTTOM, padx=10)
 
-
     
 def sPrint(msg:str):
     SabrinaLabel(msg)
     sabrina.engine.say(msg)
     sabrina.engine.runAndWait()
-    
-    
+
+
 def awserToUser(msg:str):
     if msg.__contains__("nom") and msg.__contains__("famille") and not msg.__contains__("diary"):
         sPrint(sabrina.TEMP_usersurname)
@@ -59,20 +58,17 @@ def awserToUser(msg:str):
     else:
         sPrint("Je ne comprend pas !")
 
-
 #Le label utilisateur
 def Userlabel():
     awserToUser(commandEntry.get())
     label = Label(frame, text=commandEntry.get(), bg='#1BB3A4', font=("Book Antika", 15))
     label.pack()
 
-
 #Le label utilisateur
 def SabrinaLabel(msg:str):
     label = Label(sabrinaFrame, text=msg, bg='#1BB3A4', font=("Book Antika", 15))
     label.pack()
     
-
 def _sendUserMsg(event):
     sendUserMsg()
 
@@ -94,3 +90,5 @@ print("Sabrina a correctement démarrer.")
 sPrint("Bonjour {}, Je suis Sabrina votre assistante personelle.".format(sabrina.TEMP_userfirstname))
 
 window.mainloop()
+
+sabrina.diary.database.closeConnection()
