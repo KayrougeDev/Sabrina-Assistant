@@ -18,7 +18,17 @@ class Diary:
         self.args = args.split("-")
         if len(self.args) == 3:
             diary_list.append(self)
-            database.addDiary(self.args[0], self.args[1], self.args[2])
+            dhd = self.get_diary_date_formated().split("_")
+            dd_list = dhd[0].split("/")
+            dh_list = dhd[1].split(":")
+            Y = dd_list[2]
+            M = dd_list[1]
+            D = dd_list[0]
+            H = dh_list[0]
+            MIN = dh_list[1]
+            self.diaryH = Y + M + D + H + MIN
+            self.diaryH = int(self.diaryH)
+            database.addDiary(self.args[0], self.args[1], self.diaryH)
             self.diary_list_index = len(diary_list)
             self.thread = threading.Timer(60.0, self.timeCheck)
             self.timeCheck()
@@ -89,15 +99,6 @@ class Diary:
 
     def checkIsTime(self):
         dhd = self.get_diary_date_formated().split("_")
-        dd_list = dhd[0].split("/")
-        dh_list = dhd[1].split(":")
-        Y = dd_list[2]
-        M = dd_list[1]
-        D = dd_list[0]
-        H = dh_list[0]
-        MIN = dh_list[1]
-        diaryH = Y + M + D + H + MIN
-        diaryH = int(diaryH)
         y = time.strftime("%Y")
         m = time.strftime("%m")
         d = time.strftime("%d")
@@ -105,8 +106,8 @@ class Diary:
         min = time.strftime("%M")
         localH = y + m + d + h + min
         localH = int(localH)
-        print(diaryH, localH)
-        if localH >= diaryH:
+        print(self.diaryH, localH)
+        if localH >= self.diaryH:
             self.endDiary()
             print("Agenda terminer")
             return True
