@@ -1,44 +1,35 @@
-import pathlib
 import time
 import threading
-import os
+import database
 
 diary_list = []
 
-class Diary:
-    def __init__(self, data_dir:pathlib.Path, args:str):
-        self.DIARY_DATA_DIR = data_dir / "diary"
-        if not self.DIARY_DATA_DIR.exists():
-            self.DIARY_DATA_DIR.mkdir()
+def convert_name(text:str):
+    try:
+        s = text
+        s = s.replace("_", " ")
+        return s[:len(s)-1]
+    except:
+        print("Une erreur est survenue")
 
+
+class Diary:
+    def __init__(self, args:str):
         self.args = args.split("-")
         if len(self.args) == 3:
-            f = 0
-            self.diary_file = self.DIARY_DATA_DIR / self.args[0]
-            data = open(self.diary_file, "w+")
-            while f < len(self.args):
-                data.write(self.args[f] + "\n")
-                f += 1
-            data.close()
-            self.timeCheck()
+            diary_list.append(self)
+            database.addDiary(self.args[0], self.args[1], self.args[2])
             self.diary_list_index = len(diary_list)
+            self.thread = threading.Timer(60.0, self.timeCheck)
+            self.timeCheck()
         elif len(self.args) < 3:
           print("Pas assez d'argument ({}) !".format(str(len(self.args))))
         elif len(self.args) > 3:
           print("Trop d'arguments ({}) !".format(str(len(self.args))))
 
-    def get_diary_data_dir(self):
-        return self.DIARY_DATA_DIR
-
-    def get_diary_file(self):
-        return self.diary_file
-
 
     def get_diary_values(self):
-        with open(self.get_diary_file(), "r") as file:
-            value_list = file.readlines()
-            file.close()
-            return value_list
+        return self.args
 
     def get_diary_name_formated(self):
         try:
@@ -49,9 +40,7 @@ class Diary:
 
     def get_diary_name_unformated(self):
         try:
-            s = self.get_diary_values()[0]
-            s = s.replace("_", " ")
-            return s[:len(s)-1]
+            convert_name(self.get_diary_values()[0])
         except:
             print("Une erreur est survenue")
 
@@ -64,9 +53,7 @@ class Diary:
 
     def get_diary_desc_unformated(self):
         try:
-            s = self.get_diary_values()[1]
-            s = s.replace("_", " ")
-            return s[:len(s)-1]
+            convert_name(self.get_diary_values()[1])
         except:
             print("Une erreur est survenue")
 
@@ -79,9 +66,7 @@ class Diary:
 
     def get_diary_date_unformated(self):
         try:
-            s = self.get_diary_values()[2]
-            s = s.replace("_", " ")
-            return s[:len(s)-1]
+            convert_name(self.get_diary_values()[2])
         except:
             print("Une erreur est survenue")
 
@@ -93,19 +78,14 @@ class Diary:
             time.sleep(60)
         """
         if not self.checkIsTime():
-            t = threading.Timer(60.0, self.timeCheck)
-            t.start()
-            self.thread = t
+            self.thread.start()
 
     def stop_diary(self):
         self.endDiary()
         self.thread.cancel()
 
     def endDiary(self):
-        if os.path.exists(self.diary_file):
-            os.remove(self.diary_file)
-        else:
-            print("Le fichier d'agenda n'existe pas !")
+        database.removeDiary(self.get_diary_name_formated())
 
     def checkIsTime(self):
         dhd = self.get_diary_date_formated().split("_")
