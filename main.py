@@ -1,7 +1,6 @@
 import pathlib
 import os, sys, tkinter
 import tkinter.filedialog
-from tkinter import Tk
 
 #Pour la conversion en éxécutable
 HERE = os.path.dirname(sys.argv[0])
@@ -45,7 +44,7 @@ def getConfigDir(appName=''):
         configDir = configDir / appName
         configDir.mkdir(parents=True, exist_ok=True)
     # un print pour vérifier et on renvoie "configDir" :
-    print(configDir)
+    print(platform, configDir)
     return configDir
 
 
@@ -87,4 +86,5 @@ def chooseFileDirToSave(wTitle="Sauvegarder un fichier - Sabrina"):
 
 if step == 0:
     step = 1
+    import database
     import chat
