@@ -8,7 +8,7 @@ def convert_name(text:str):
     try:
         s = text
         s = s.replace("_", " ")
-        return s[:len(s)-1]
+        return s
     except:
         print("Une erreur est survenue")
 
@@ -44,7 +44,7 @@ class Diary:
     def get_diary_name_formated(self):
         try:
             s = self.get_diary_values()[0]
-            return s[:len(s)-1]
+            return s
         except:
             print("Une erreur est survenue")
 
@@ -57,7 +57,7 @@ class Diary:
     def get_diary_desc_formated(self):
         try:
             s = self.get_diary_values()[1]
-            return s[:len(s)-1]
+            return s
         except:
             print("Une erreur est survenue")
 
@@ -70,7 +70,7 @@ class Diary:
     def get_diary_date_formated(self):
         try:
             s = self.get_diary_values()[2]
-            return s[:len(s)-1]
+            return s
         except:
             print("Une erreur est survenue")
 
