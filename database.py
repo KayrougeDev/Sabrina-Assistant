@@ -6,6 +6,13 @@ from colorama import Fore
 try:
     connect = sqlite3.connect("DB/NABRISA.db")
     cursor = connect.cursor()
+    
+    try:
+        cursor.execute("SELECT * FROM NABRISA_agenda")
+    except Exception as e:
+        if str(e).__contains__("NABRISA_agenda"):
+            cursor.execute('CREATE TABLE "NABRISA_agenda" ("agenda_name" TEXT,"agenda_desc" TEXT,"agenda_date" TEXT)')
+            print("La table 'NABRISA_agenda' n'existait pas est a été créé.")
 
     def getCurrentDiary():
         req = cursor.execute("SELECT * FROM NABRISA_agenda")
