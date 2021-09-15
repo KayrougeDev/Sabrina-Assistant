@@ -79,6 +79,7 @@ class Diary:
             time.sleep(60)
         """
         if not self.checkIsTime():
+            self.thread = threading.Timer(60.0, self.timeCheck)
             self.thread.start()
 
     def stop_diary(self):
@@ -111,7 +112,7 @@ class Diary:
 
         print(self.diaryH, localH)
         if localH >= self.diaryH:
-            self.endDiary()
+            self.stop_diary()
             print("Agenda terminer")
             return True
         else:
