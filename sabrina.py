@@ -234,7 +234,7 @@ def actualDiaryWindow():
     diarylist = ""
     dIndex = 0
     while dIndex < (len(diary.database.getCurrentDiary())):
-        diarylist = diarylist + "\n" + diary.database.getCurrentDiary()[dIndex]
+        diarylist = diarylist + "\n" + str(diary.database.getCurrentDiary()[dIndex]).replace("_", " ")
         dIndex += 1
     showinfo("Agenda", "Agenda en cours (" + str(len(diary.database.getCurrentDiary())) +")\n" + diarylist)
 
