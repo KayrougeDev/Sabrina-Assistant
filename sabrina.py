@@ -9,9 +9,6 @@ Assistant Personnel V 1.2
 #import PyQt5 as pqt
 from main import DATA_FILE_DIR, chooseFileDir, chooseFileDirToSave
 
-import diary
-import codeqr as qrcode
-
 # Attention ne pas faire de runandwait et de init, utilise vocal_engine.speak(message) ca va tout faire tout seul
 import pyttsx3
 
@@ -20,14 +17,15 @@ import pyttsx3
 # et Fore.RESET remet la couleur par default (si ca ne marche pas faire Fore.WHITE pour remettre en blanc
 import colorama
 from colorama import Fore
-import pygame
+
+import diary
+import codeqr as qrcode
 
 from tkinter import *
 from tkinter.messagebox import *
 
 # Tout les codes d'initialisation
 colorama.init()
-pygame.init()
 
 print(Fore.GREEN + "Sabrina 1.2" + Fore.WHITE)
 
@@ -117,6 +115,12 @@ def updateData():
 
 
 updateData()
+
+print(Fore.CYAN + "Démarage des agendas...")
+for d in diary.database.getAllDiary():
+    args = d[0]+"-"+d[1]+"-"+d[2]
+    diary.Diary(args)
+print("Les agendas ont été démarer" + Fore.WHITE)
 
 def clearData():
     f = open(DATA_FILE, "w")
@@ -218,7 +222,9 @@ def createDiary():
             descs = name2 + "-" + desc2
             date = e1.get() + "/" + e2.get() + "/" + e3.get() + "_" + e4.get() + ":" + e5.get()
             final = descs + "-" + date
-            d = diary.Diary(final)
+
+            
+            diary.Diary(final)
             win.destroy()
     #     except:
     #         showerror("Agenda", "Une erreur est survenue peut-être que vous avez mis un caractère spécial (il ne sont pas supporter)")
@@ -238,7 +244,6 @@ def stopAllDiary():
         diary.diary_list[dIndex].stop_diary()
         diary.diary_list.remove(diary.diary_list[dIndex])
         dIndex += 1
-
 
 #Un menu
 menubar = Menu(root)
