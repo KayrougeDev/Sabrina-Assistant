@@ -3,7 +3,7 @@ from tkinter.messagebox import showerror, showinfo
 
 
 try:
-    connect = sqlite3.connect("DB/base.db")
+    connect = sqlite3.connect("DB/NABRISA.db")
     cursor = connect.cursor()
 
     def getCurrentDiary():
