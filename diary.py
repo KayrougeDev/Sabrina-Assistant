@@ -21,7 +21,6 @@ class Diary:
             if not database.getCurrentDiary().__contains__(self.args[0]):
                 database.addDiary(self.args[0], self.args[1], self.args[2])
             self.diary_list_index = len(diary_list)
-            self.thread = threading.Timer(60.0, self.timeCheck)
             self.timeCheck()
         elif len(self.args) < 3:
           print("Pas assez d'argument ({}) !".format(str(len(self.args))))
@@ -78,13 +77,21 @@ class Diary:
                 break
             time.sleep(60)
         """
-        if not self.checkIsTime():
+        if self.checkIsTime():
+            self.stop_diary()
+        else:
             self.thread = threading.Timer(60.0, self.timeCheck)
             self.thread.start()
 
+            
+
     def stop_diary(self):
-        self.endDiary()
-        self.thread.cancel()
+        try:
+            self.thread.cancel()
+        except:
+            print("Le thread n'existe pas !")
+        finally:
+            self.endDiary()
 
     def endDiary(self):
         database.removeDiary(self.get_diary_name_formated())
@@ -112,8 +119,6 @@ class Diary:
 
         print(self.diaryH, localH)
         if localH >= self.diaryH:
-            self.stop_diary()
-            print("Agenda terminer")
             return True
         else:
             return False
