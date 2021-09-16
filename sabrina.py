@@ -120,6 +120,7 @@ print(Fore.CYAN + "Démarage des agendas...")
 for d in diary.database.getAllDiary():
     args = d[0]+"-"+d[1]+"-"+d[2]
     diary.Diary(args)
+    print(d[0]+" a été créé !")
 print("Les agendas ont été démarer" + Fore.WHITE)
 
 def clearData():
@@ -241,9 +242,11 @@ def actualDiaryWindow():
 def stopAllDiary():
     dIndex = 0
     while dIndex < (len(diary.diary_list)):
+        print(dIndex)
         diary.diary_list[dIndex].stop_diary()
         diary.diary_list.remove(diary.diary_list[dIndex])
         dIndex += 1
+        print(dIndex)
 
 #Un menu
 menubar = Menu(root)
