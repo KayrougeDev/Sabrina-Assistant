@@ -86,5 +86,4 @@ def chooseFileDirToSave(wTitle="Sauvegarder un fichier - Sabrina"):
 
 if step == 0:
     step = 1
-    import database
     import chat
